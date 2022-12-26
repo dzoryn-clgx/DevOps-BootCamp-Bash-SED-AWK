@@ -5,7 +5,7 @@ cp ./passwd ./passwd_new
 
 
 # b. Change shell for user saned from /usr/sbin/nologin to /bin/bash using AWK
-awk -i inplace -F':' -OFS':' '/saned/{gsub("/usr/sbin/nologin","/bin/bash") }; {print}' ./passwd_new
+awk 'BEGIN{FS=":";OFS=":"} $1=="saned" {$NF="/bin/bash"}1' passwd_new > tmp && mv tmp passwd_new
 
 # c. Change shell for user avahi from /usr/sbin/nologin to /bin/bash using SED
 sed -i '/avahi:/s/\/usr\/sbin\/nologin/\/bin\/bash/' ./passwd_new
