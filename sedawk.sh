@@ -17,4 +17,4 @@ awk -i inplace -F':' -v OFS=: '{print $1, $3, $5, $7}' ./passwd_new
 sed -i '/daemon/d' ./passwd_new
 
 # f. Change shell for all users with even UID to /bin/zsh
-awk -i inplace -F':' -v OFS=: '{ if ($2%2=="0") {gsub($4,"/bin/zsh") }; {print} }' ./passwd_new
+awk 'BEGIN{FS=":";OFS=":"} $2%2==0 {$NF="/bin/zsh"}1' passwd_new > tmp && mv tmp passwd_new
