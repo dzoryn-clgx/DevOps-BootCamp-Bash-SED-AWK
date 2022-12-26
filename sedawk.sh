@@ -11,7 +11,7 @@ awk 'BEGIN{FS=":";OFS=":"} $1=="saned" {$NF="/bin/bash"}1' passwd_new > tmp && m
 sed -i '/avahi:/s/\/usr\/sbin\/nologin/\/bin\/bash/' ./passwd_new
 
 # d. Save only 1-st 3-th 5-th 7-th columns of each string based on : delimiter
-awk -i inplace -F':' -v OFS=: '{print $1, $3, $5, $7}' ./passwd_new
+awk 'BEGIN{FS=":";OFS=":"} {print $1,$3,$5,$7 > "passwd_new"}' passwd_new
 
 # e. Remove all lines from file containing word daemon
 sed -i '/daemon/d' ./passwd_new
