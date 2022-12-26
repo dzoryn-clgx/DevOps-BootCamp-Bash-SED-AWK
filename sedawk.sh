@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-cp ./src/passwd ./passwd_new
+cp ./passwd ./passwd_new
 awk 'BEGIN{FS=":";OFS=":"} $1=="saned" {$NF="/bin/bash"}1' passwd_new > tmp && mv tmp passwd_new
 sed -i '/avahi:/s@/usr/sbin/nologin@/bin/bash@' passwd_new
 awk 'BEGIN{FS=":";OFS=":"} {print $1,$3,$5,$7 > "passwd_new"}' passwd_new
